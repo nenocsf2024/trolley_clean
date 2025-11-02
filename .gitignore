@@ -1,0 +1,25 @@
+# API keys and secrets
+.env
+
+# Python virtual environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Runtime logs
+*.log
+judging.log
+
+# Large data files (keep summaries and metadata)
+results/local_runs_expanded/*.jsonl
+results/phase2/*.jsonl
+
+# Keep analysis results and summaries
+!results/**/*.csv
+!results/**/*.txt
+!results/**/*.md
+!results/**/README*

@@ -1,0 +1,6 @@
+model,ok,errors,avg_len
+mistral:7b-instruct,150,0,1268.6
+gemma:2b-instruct,150,0,1535.5
+phi3:mini,150,0,1400.8
+llama3:8b,299,1,1645.4
+orca-mini:7b,150,0,755.9
