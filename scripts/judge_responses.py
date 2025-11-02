@@ -325,6 +325,32 @@ def main() -> None:
     responses = load_responses(args.input)
     print(f"Loaded {len(scenarios)} scenarios and {len(responses)} responses", flush=True)
     
+    # Check if output file already exists and is complete (150 evaluations)
+    if args.output.exists():
+        try:
+            import csv as csv_module
+            with args.output.open("r", encoding="utf-8") as f:
+                reader = csv_module.DictReader(f)
+                rows = list(reader)
+            
+            # Count unique scenario_id + iteration combinations
+            unique_keys = set()
+            for r in rows:
+                key = (r.get('scenario_id'), r.get('iteration'))
+                if key and key != (None, None):
+                    unique_keys.add(key)
+            
+            if len(unique_keys) >= 150:
+                print(f"✓ Output file already complete: {args.output} ({len(unique_keys)}/150 evaluations)", flush=True)
+                print("  Skipping - file already has sufficient evaluations", flush=True)
+                return
+            else:
+                print(f"⚠️  Output file exists but incomplete: {args.output} ({len(unique_keys)}/150 evaluations)", flush=True)
+                print("  Will overwrite and restart from beginning", flush=True)
+        except Exception as e:
+            print(f"⚠️  Could not check existing file: {e}", flush=True)
+            print("  Will proceed with new file", flush=True)
+    
     # Use incremental writing - write to CSV as we go
     judged_rows = judge_responses(
         responses, scenarios, args.provider, args.model, args.sleep,
