@@ -1,0 +1,26 @@
+[
+  {
+    "judge_model":"claude-3-5-haiku-20241022",
+    "n_rows":1500,
+    "balanced_count":466,
+    "commitment_count":1034,
+    "mean_alignment_balance":3.7424892704,
+    "mean_alignment_commitment":4.2398452611,
+    "cohens_d":1.0039808175,
+    "marginal_r2":0.2202499189,
+    "conditional_r2":0.4539874498,
+    "model_summary":"                        Mixed Linear Model Regression Results\n=====================================================================================\nModel:                    MixedLM         Dependent Variable:         alignment_score\nNo. Observations:         1500            Method:                     ML             \nNo. Groups:               30              Scale:                      0.1531         \nMin. group size:          50              Log-Likelihood:             -767.7439      \nMax. group size:          50              Converged:                  Yes            \nMean group size:          50.0                                                       \n-------------------------------------------------------------------------------------\n                                           Coef.  Std.Err.   z    P>|z| [0.025 0.975]\n-------------------------------------------------------------------------------------\nIntercept                                   3.449    0.092 37.659 0.000  3.269  3.628\nC(response_type)[T.commitment]              0.525    0.031 16.912 0.000  0.464  0.586\nC(framing)[T.neutral]                       0.318    0.119  2.674 0.007  0.085  0.550\nC(framing)[T.safety_first]                  0.329    0.117  2.807 0.005  0.099  0.559\nC(model_under_test)[T.llama3:8b]            0.070    0.032  2.171 0.030  0.007  0.132\nC(model_under_test)[T.mistral:7b-instruct]  0.028    0.032  0.865 0.387 -0.035  0.090\nC(model_under_test)[T.orca-mini:7b]         0.130    0.032  4.043 0.000  0.067  0.192\nC(model_under_test)[T.phi3:mini]            0.147    0.032  4.611 0.000  0.085  0.210\ntemperature                                -0.029    0.033 -0.859 0.391 -0.094  0.037\nGroup Var                                   0.066    0.046                           \n=====================================================================================\n"
+  },
+  {
+    "judge_model":"gpt-4o-mini",
+    "n_rows":1500,
+    "balanced_count":237,
+    "commitment_count":1263,
+    "mean_alignment_balance":3.3164556962,
+    "mean_alignment_commitment":4.4520981789,
+    "cohens_d":2.20843885,
+    "marginal_r2":0.4301270025,
+    "conditional_r2":0.5481308649,
+    "model_summary":"                        Mixed Linear Model Regression Results\n=====================================================================================\nModel:                    MixedLM         Dependent Variable:         alignment_score\nNo. Observations:         1500            Method:                     ML             \nNo. Groups:               30              Scale:                      0.1882         \nMin. group size:          50              Log-Likelihood:             -915.2522      \nMax. group size:          50              Converged:                  Yes            \nMean group size:          50.0                                                       \n-------------------------------------------------------------------------------------\n                                           Coef.  Std.Err.   z    P>|z| [0.025 0.975]\n-------------------------------------------------------------------------------------\nIntercept                                   3.033    0.087 35.031 0.000  2.863  3.203\nC(response_type)[T.commitment]              1.083    0.037 29.253 0.000  1.010  1.155\nC(framing)[T.neutral]                       0.194    0.104  1.868 0.062 -0.010  0.397\nC(framing)[T.safety_first]                  0.293    0.103  2.849 0.004  0.091  0.495\nC(model_under_test)[T.llama3:8b]            0.221    0.035  6.241 0.000  0.152  0.291\nC(model_under_test)[T.mistral:7b-instruct]  0.110    0.036  3.100 0.002  0.041  0.180\nC(model_under_test)[T.orca-mini:7b]         0.333    0.035  9.403 0.000  0.264  0.402\nC(model_under_test)[T.phi3:mini]            0.176    0.035  4.956 0.000  0.106  0.245\ntemperature                                -0.004    0.037 -0.104 0.918 -0.076  0.068\nGroup Var                                   0.049    0.032                           \n=====================================================================================\n"
+  }
+]

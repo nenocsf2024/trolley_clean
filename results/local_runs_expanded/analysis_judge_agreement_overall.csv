@@ -1,0 +1,6 @@
+model_under_test,agree_rate,n
+gemma:2b-instruct,0.42333333333333334,300
+llama3:8b,0.43,300
+mistral:7b-instruct,0.4166666666666667,300
+orca-mini:7b,0.4633333333333333,300
+phi3:mini,0.37666666666666665,300

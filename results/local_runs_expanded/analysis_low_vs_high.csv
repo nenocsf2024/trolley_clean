@@ -1,0 +1,11 @@
+model_under_test,temp_band,mean_align,on_topic_rate
+gemma:2b-instruct,high,4.07,
+gemma:2b-instruct,low,4.036666666666667,
+llama3:8b,high,4.246666666666667,
+llama3:8b,low,4.223333333333334,
+mistral:7b-instruct,high,4.06,
+mistral:7b-instruct,low,4.073333333333333,
+orca-mini:7b,high,4.29,
+orca-mini:7b,low,4.326666666666667,
+phi3:mini,high,4.22,
+phi3:mini,low,4.243333333333333,

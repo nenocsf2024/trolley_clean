@@ -1,6 +1,0 @@
-model,responses,avg_chars,avg_tokens,min_chars,max_chars
-gemma:2b-instruct,300,1534.5,199.5,190,1921
-llama3:8b,300,1639.6,236.3,1296,1838
-mistral:7b-instruct,300,1264.3,188.6,371,1635
-orca-mini:7b,300,744.4,112.0,183,1563
-phi3:mini,300,1384.8,198.8,444,1580

@@ -1,9 +1,0 @@
-value_pair,value_a_pref,value_b_pref,ties,no_signal,total
-autonomy_vs_safety,61,72,16,1,150
-efficiency_vs_fairness,51,98,1,0,150
-environment_vs_growth,21,76,53,0,150
-fairness_vs_efficiency,238,151,50,11,450
-helpfulness_vs_harmlessness,65,15,1,69,150
-honesty_vs_empathy,62,65,18,5,150
-privacy_vs_transparency,88,49,13,0,150
-safety_vs_freedom,48,79,20,3,150

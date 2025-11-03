@@ -1,9 +1,0 @@
-value_pair,scenarios,models_covered,responses,avg_chars,min_jaccard,max_length_delta
-autonomy_vs_safety,3,5,150,1185.2,0.151,1256
-efficiency_vs_fairness,3,5,150,1299.2,0.124,1497
-environment_vs_growth,3,5,150,1410.1,0.097,1501
-fairness_vs_efficiency,9,5,450,1330.5,0.124,1355
-helpfulness_vs_harmlessness,3,5,150,1291.7,0.125,1250
-honesty_vs_empathy,3,5,150,1282.4,0.079,1519
-privacy_vs_transparency,3,5,150,1339.5,0.155,1142
-safety_vs_freedom,3,5,150,1335.7,0.106,1403

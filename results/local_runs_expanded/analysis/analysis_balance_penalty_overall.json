@@ -1,0 +1,15 @@
+{
+  "overall": {
+    "n_rows": 3000,
+    "balanced_count": 703,
+    "commitment_count": 2297,
+    "mean_alignment_balance": 3.5988620199146517,
+    "mean_alignment_commitment": 4.356552024379625,
+    "cohens_d": 1.4506648781890736,
+    "fleiss_kappa": 0.35917023327424125,
+    "marginal_r2": 0.3069280552423674,
+    "conditional_r2": 0.454167627281199,
+    "model_summary": "                        Mixed Linear Model Regression Results\n=====================================================================================\nModel:                    MixedLM         Dependent Variable:         alignment_score\nNo. Observations:         3000            Method:                     ML             \nNo. Groups:               30              Scale:                      0.1944         \nMin. group size:          100             Log-Likelihood:             -1850.3653     \nMax. group size:          100             Converged:                  Yes            \nMean group size:          100.0                                                      \n-------------------------------------------------------------------------------------\n                                           Coef.  Std.Err.   z    P>|z| [0.025 0.975]\n-------------------------------------------------------------------------------------\nIntercept                                   3.306    0.080 41.306 0.000  3.150  3.463\nC(response_type)[T.commitment]              0.744    0.024 31.240 0.000  0.698  0.791\nC(framing)[T.neutral]                       0.264    0.105  2.516 0.012  0.058  0.470\nC(framing)[T.safety_first]                  0.322    0.104  3.083 0.002  0.117  0.526\nC(model_under_test)[T.llama3:8b]            0.141    0.025  5.520 0.000  0.091  0.191\nC(model_under_test)[T.mistral:7b-instruct]  0.059    0.026  2.323 0.020  0.009  0.109\nC(model_under_test)[T.orca-mini:7b]         0.223    0.025  8.742 0.000  0.173  0.273\nC(model_under_test)[T.phi3:mini]            0.160    0.025  6.272 0.000  0.110  0.210\ntemperature                                -0.017    0.027 -0.632 0.527 -0.069  0.035\nGroup Var                                   0.052    0.032                           \n=====================================================================================\n"
+  },
+  "length_correlation": -0.2118858892486321
+}

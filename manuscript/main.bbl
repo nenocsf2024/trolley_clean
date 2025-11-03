@@ -1,0 +1,90 @@
+\begin{thebibliography}{14}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ahmed et~al.(2025)]{ahmed2025speceval}
+Amir Ahmed et~al.
+\newblock Speceval: Evaluating specification robustness of ai evaluators, 2025.
+
+\bibitem[Awad et~al.(2018)Awad, Dsouza, Kim, Schulz, Henrich, Shariff,
+  Bonnefon, and Rahwan]{awad2018moral}
+Edmond Awad, Sohan Dsouza, Richard Kim, Jonathan Schulz, Joseph Henrich, Azim
+  Shariff, Jean-Fran\c{c}ois Bonnefon, and Iyad Rahwan.
+\newblock The moral machine experiment.
+\newblock \emph{Nature}, 563\penalty0 (7729):\penalty0 59--64, 2018.
+
+\bibitem[Bai et~al.(2022)]{bai2022constitutional}
+Yuntao Bai et~al.
+\newblock Constitutional ai: Harmlessness from ai feedback, 2022.
+
+\bibitem[Casper et~al.(2023)Casper, Freedman, Halpern, Kenton, Leike, Nadeau,
+  Pan, Prunkl, Rando, Ring, Saunders, Seay, Shah, Uesato, Wang, Xiong, and
+  Zhang]{casper2023limitations}
+Stephen Casper, Rachel Freedman, David Halpern, Zachary Kenton, Jan Leike, Max
+  Nadeau, Fei Pan, Carina Prunkl, Javier Rando, Mark Ring, William Saunders,
+  Cody Seay, Rohin Shah, Jonathan Uesato, Alex~Turner Wang, Wenlong Xiong, and
+  Aleksander~Madry Zhang.
+\newblock Open problems and fundamental limitations of reinforcement learning
+  from human feedback, 2023.
+
+\bibitem[Chiu et~al.(2024)]{chiu2024daily}
+Justin Chiu et~al.
+\newblock Daily dilemmas: Benchmarking moral reasoning in language models,
+  2024.
+
+\bibitem[Chiu et~al.(2025)]{chiu2025airisk}
+Justin Chiu et~al.
+\newblock Airisk dilemmas: Stress-testing ai ethics, 2025.
+
+\bibitem[Christiano et~al.(2017)Christiano, Leike, Brown, Martic, Legg, and
+  Amodei]{christiano2017deep}
+Paul~F Christiano, Jan Leike, Tom~B Brown, Miljan Martic, Shane Legg, and Dario
+  Amodei.
+\newblock Deep reinforcement learning from human preferences.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem[Dubois et~al.(2024)Dubois, Li, Li, Song, and
+  Abbeel]{dubois2024alpacaeval}
+Yann Dubois, Pengcheng Li, Xinyun Li, Dawn Song, and Pieter Abbeel.
+\newblock Length-controlled alpacaeval: A simple way to mitigate length bias in
+  llm evaluation, 2024.
+
+\bibitem[Liu et~al.(2023)Liu, Gao, Feng, Yu, Yang, and Li]{liu2023geval}
+Tianyu Liu, Pengfei Gao, Yifan Feng, Han Yu, Tianyu Yang, and Lei Li.
+\newblock G-eval: Nlg evaluation using bertscore with gpt-based wisdom of the
+  crowd, 2023.
+
+\bibitem[Manheim and Garrabrant(2018)]{manheim2018categorizing}
+David Manheim and Scott Garrabrant.
+\newblock Categorizing variants of goodhart's law.
+\newblock \emph{arXiv preprint arXiv:1803.04585}, 2018.
+
+\bibitem[Mu et~al.(2024)]{mu2024rule}
+Tongliang Mu et~al.
+\newblock Rule-based reward modeling for alignment, 2024.
+
+\bibitem[Perez et~al.(2022)Perez, Ruan, Chen, Steiner, Xu, Chen, Narasimhan,
+  and Cho]{perez2022discovering}
+Ethan Perez, Dylan Ruan, Weizhe Chen, Benjamin Steiner, Liang Xu, Yi-Lin Chen,
+  Karthik Narasimhan, and Kyunghyun Cho.
+\newblock Discovering language model behaviors with model-written evaluations,
+  2022.
+
+\bibitem[Zhang et~al.(2025)]{zhang2025stresstest}
+Susan Zhang et~al.
+\newblock Stress-testing model specs reveals character differences among
+  language models, 2025.
+
+\bibitem[Zheng et~al.(2023)Zheng, Chiang, Sheng, Zhuang, Wu, Zhuang, Lin, Li,
+  Li, Patel, Gonzalez, Stoica, Zhang, Fang, Xiong, Shen, Zeng, Li, Du, Yu, and
+  Li]{zheng2023judging}
+Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Yong Wu, Yonghao
+  Zhuang, Yi~Lin, Xinyang Li, Zhuohan Li, Pranay Patel, Joseph~E Gonzalez, Ion
+  Stoica, Hao Zhang, Binhang Fang, Biyang Xiong, Yuhui Shen, Michael Zeng,
+  Ce~Li, Nan Du, Dian Yu, and Saihui Li.
+\newblock Judging llm-as-a-judge with mt-bench and chatbot arena, 2023.
+
+\end{thebibliography}
