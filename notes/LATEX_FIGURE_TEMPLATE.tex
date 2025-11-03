@@ -1,0 +1,119 @@
+% LaTeX Template for Including PNG Figures in arXiv Submission
+% Based on arXiv submission guidelines: https://info.arxiv.org/help/submit/index.html
+
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}      % Required for \includegraphics
+\usepackage{float}         % For [H] figure placement
+\usepackage{subcaption}    % For subfigures
+\usepackage{booktabs}      % For nice tables
+\usepackage{amsmath}       % For math
+
+% ============================================
+% FIGURE INCLUSION EXAMPLES
+% ============================================
+
+% Example 1: Single figure, full width
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/temperature_effects.png}
+    \caption{Mean alignment scores across temperature range (0.0-1.0) for each model. Error bars represent standard error of the mean (SEM).}
+    \label{fig:temperature}
+\end{figure}
+
+% Example 2: Single figure, 80% width
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/framing_effects.png}
+    \caption{Framing effects on alignment scores. The safety-first framing consistently yields higher alignment than neutral or freedom-first framings.}
+    \label{fig:framing}
+\end{figure}
+
+% Example 3: Two figures side-by-side
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/judge_agreement_overall.png}
+        \caption{Overall agreement}
+        \label{fig:judge_overall}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/judge_agreement_by_temp.png}
+        \caption{By temperature}
+        \label{fig:judge_temp}
+    \end{subfigure}
+    \caption{Judge agreement patterns. (a) Overall agreement rates per model. (b) Agreement rates by temperature and model.}
+    \label{fig:judge}
+\end{figure}
+
+% Example 4: Three figures in a row
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/temp_gemma.png}
+        \caption{gemma:2b}
+        \label{fig:temp_gemma}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/temp_llama.png}
+        \caption{llama3:8b}
+        \label{fig:temp_llama}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/temp_mistral.png}
+        \caption{mistral:7b}
+        \label{fig:temp_mistral}
+    \end{subfigure}
+    \caption{Temperature effects for three models.}
+    \label{fig:temp_models}
+\end{figure}
+
+% Example 5: Figure with reference in text
+As shown in Figure \ref{fig:temperature}, alignment scores vary modestly across temperatures. 
+The range of variation (0.15--0.23 points) indicates relative stability, with orca-mini:7b 
+showing the highest overall alignment (mean 4.33).
+
+% ============================================
+% FIGURE SIZING OPTIONS
+% ============================================
+
+% Full width
+\includegraphics[width=\textwidth]{figures/filename.png}
+
+% 80% width (recommended for most figures)
+\includegraphics[width=0.8\textwidth]{figures/filename.png}
+
+% Fixed width
+\includegraphics[width=10cm]{figures/filename.png}
+
+% Fixed height
+\includegraphics[height=8cm]{figures/filename.png}
+
+% Scale factor
+\includegraphics[scale=0.8]{figures/filename.png}
+
+% Both width and height (may distort)
+\includegraphics[width=10cm, height=8cm]{figures/filename.png}
+
+% ============================================
+% CHECKLIST
+% ============================================
+
+% Before submitting to arXiv:
+% [ ] All PNG files have no spaces or special characters in names
+% [ ] File names in \includegraphics{} match exactly (case-sensitive)
+% [ ] \usepackage{graphicx} is in the preamble
+% [ ] PDFLaTeX compiler is selected (not regular LaTeX)
+% [ ] figures/ directory is included in upload
+% [ ] Tested compilation locally
+% [ ] All figures have captions and labels
+% [ ] References use \ref{fig:label} syntax
+

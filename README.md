@@ -1,5 +1,7 @@
 # The Balance Penalty
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17517864.svg)](https://doi.org/10.5281/zenodo.17517864)
+
 Code and data for the paper **“The Balance Penalty: How LLM Judges Systematically Penalize Nuanced Moral Reasoning”** by Nenad Bago (2025).
 
 > **TL;DR** – Automated evaluators such as GPT-4o-mini and Claude 3.5 Haiku award decisively framed answers substantially higher alignment scores than balanced trade-off reasoning (Δ ≈ 0.74). This repository contains the complete Phase 1 dataset (1,500 responses, 3,000 judge evaluations), generation and judging scripts, statistical analysis, and publication figures.
@@ -108,11 +110,13 @@ The `requirements.txt` file pins the exact Python packages used to reproduce the
 If you use this repository, please cite:
 
 ```bibtex
-@article{bago2025balance,
-  title   = {The Balance Penalty: How LLM Judges Systematically Penalize Nuanced Moral Reasoning},
-  author  = {Bago, Nenad},
-  journal = {arXiv preprint arXiv:XXXX.XXXXX},
-  year    = {2025}
+@misc{bago2025balance,
+  title        = {The Balance Penalty: How {LLM} Judges Systematically Penalize Nuanced Moral Reasoning},
+  author       = {Bago, Nenad},
+  year         = {2025},
+  howpublished = {Zenodo},
+  doi          = {10.5281/zenodo.17517864},
+  url          = {https://doi.org/10.5281/zenodo.17517864}
 }
 ```
 

@@ -1,4 +1,4 @@
-\begin{thebibliography}{14}
+\begin{thebibliography}{15}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -51,6 +51,13 @@ Paul~F Christiano, Jan Leike, Tom~B Brown, Miljan Martic, Shane Legg, and Dario
 Yann Dubois, Pengcheng Li, Xinyun Li, Dawn Song, and Pieter Abbeel.
 \newblock Length-controlled alpacaeval: A simple way to mitigate length bias in
   llm evaluation, 2024.
+
+\bibitem[Greene et~al.(2001)Greene, Sommerville, Nystrom, Darley, and
+  Cohen]{greene2001dual}
+Joshua~D Greene, R~Brian Sommerville, Leigh~E Nystrom, John~M Darley, and
+  Jonathan~D Cohen.
+\newblock An fmri investigation of emotional engagement in moral judgment.
+\newblock \emph{Science}, 293\penalty0 (5537):\penalty0 2105--2108, 2001.
 
 \bibitem[Liu et~al.(2023)Liu, Gao, Feng, Yu, Yang, and Li]{liu2023geval}
 Tianyu Liu, Pengfei Gao, Yifan Feng, Han Yu, Tianyu Yang, and Lei Li.
