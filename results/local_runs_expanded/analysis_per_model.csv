@@ -1,6 +1,6 @@
 model,responses,avg_chars,avg_tokens,min_chars,max_chars
-gemma:2b-instruct,150,1535.5,198.6,190,1856
-llama3:8b,299,1645.4,236.9,1384,1838
-mistral:7b-instruct,150,1268.6,188.2,393,1635
-orca-mini:7b,150,755.9,113.1,183,1533
-phi3:mini,150,1400.8,199.5,504,1580
+gemma:2b-instruct,300,1534.5,199.5,190,1921
+llama3:8b,300,1639.6,236.3,1296,1838
+mistral:7b-instruct,300,1264.3,188.6,371,1635
+orca-mini:7b,300,744.4,112.0,183,1563
+phi3:mini,300,1384.8,198.8,444,1580

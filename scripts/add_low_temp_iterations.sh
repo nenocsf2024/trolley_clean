@@ -49,11 +49,23 @@ export OLLAMA_RESUME=1
 
 # Run with 10 iterations total, providing all 10 temperatures
 # Resume mode will skip 1-5, generate only 6-10
+# Run in background with logging
+LOG_FILE="/tmp/phase1_expansion_$(date +%Y%m%d_%H%M%S).log"
+echo "Starting expansion..."
+echo "Log file: $LOG_FILE"
+echo ""
+echo "To monitor progress in real-time, run in another terminal:"
+echo "  python scripts/monitor_phase1_expansion.py"
+echo ""
+echo "Or view the log file:"
+echo "  tail -f $LOG_FILE"
+echo ""
+
 python scripts/run_phase1_expanded.py \
     --iterations 10 \
     --temperatures 0.6,0.7,0.8,0.9,1.0,0.0,0.2,0.3,0.4,0.5 \
     --output-dir results/local_runs_expanded \
-    $DRY_RUN
+    $DRY_RUN 2>&1 | tee "$LOG_FILE"
 
 echo ""
 echo "============================================================"

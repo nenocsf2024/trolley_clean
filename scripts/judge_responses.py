@@ -200,23 +200,60 @@ def judge_responses(
     total = len(responses)
     fieldnames_written = False
     
+    # Load already-judged keys for resume mode
+    already_judged = set()
+    existing_rows = []
+    if output_path and output_path.exists():
+        try:
+            with output_path.open("r", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                existing_rows = list(reader)
+                for row in existing_rows:
+                    scenario_id = row.get('scenario_id')
+                    iteration = row.get('iteration')
+                    if scenario_id and iteration:
+                        already_judged.add((scenario_id, iteration))
+            if already_judged:
+                print(f"  Resuming: {len(already_judged)} responses already judged, skipping...", flush=True)
+        except Exception as e:
+            print(f"  ⚠️  Could not load existing judgments: {e}", flush=True)
+    
     # Open CSV file for incremental writing if path provided
     csv_file = None
     csv_writer = None
+    # Use append mode if file exists and has data, otherwise write mode
     if output_path:
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        csv_file = output_path.open("w", newline="", encoding="utf-8")
+        if output_path.exists() and existing_rows:
+            # Append mode - keep existing data
+            csv_file = output_path.open("a", newline="", encoding="utf-8")
+            # Use existing fieldnames
+            if existing_rows:
+                fieldnames = list(existing_rows[0].keys())
+                csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+                fieldnames_written = True
+        else:
+            # Write mode - new file
+            csv_file = output_path.open("w", newline="", encoding="utf-8")
     
     try:
         for idx, resp in enumerate(responses, start=1):
             if not resp.get("response"):
                 continue  # skip errors
             scenario_id = resp.get("scenario_id") or resp.get("id")
+            iteration = resp.get("iteration")
+            
+            # Skip if already judged (resume mode)
+            # Compare iteration as string (CSV stores as string)
+            iter_key = str(iteration) if iteration is not None else ""
+            if (scenario_id, iter_key) in already_judged:
+                continue
+            
             scenario = scenarios.get(scenario_id)
             if not scenario:
                 print(f"⚠️  [{idx}/{total}] Skipping {scenario_id}: scenario not found", flush=True)
                 continue
-            print(f"[{idx}/{total}] judging {scenario_id} ({model_name} via {provider})...", flush=True)
+            print(f"[{idx}/{total}] judging {scenario_id} iter {iteration} ({model_name} via {provider})...", flush=True)
             prompt = build_judge_prompt(scenario, resp)
             raw = ""
             parsed = None
@@ -266,20 +303,37 @@ def judge_responses(
                     field_set = set(record.keys())
                     fieldnames = sorted(field_set)
                     csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-                    csv_writer.writeheader()
+                    # Only write header if file was just created (write mode), not in append mode
+                    # In append mode, header already exists
+                    if not (output_path.exists() and existing_rows):
+                        csv_writer.writeheader()
                     fieldnames_written = True
                 
                 # Ensure all fields in record exist in fieldnames (add if missing)
                 current_fields = set(csv_writer.fieldnames)
                 record_fields = set(record.keys())
                 if record_fields - current_fields:
-                    # New fields found - need to recreate writer with expanded fieldnames
+                    # New fields found - need to update fieldnames
+                    # In append mode, we can't rewrite the file, so just update the writer
+                    # and pad missing fields in existing rows would require file rewrite
+                    # For now, just ensure current record has all required fields
                     all_fields = sorted(current_fields | record_fields)
-                    csv_file.seek(0)
-                    csv_file.truncate()
-                    csv_writer = csv.DictWriter(csv_file, fieldnames=all_fields)
-                    csv_writer.writeheader()
-                    fieldnames_written = True
+                    # If we're in append mode (existing_rows is non-empty), we can't rewrite the file
+                    # In write mode (existing_rows is empty), we can rewrite
+                    if existing_rows:
+                        # In append mode - just update writer, pad missing fields in current record
+                        csv_writer = csv.DictWriter(csv_file, fieldnames=all_fields)
+                        # Add missing fields to current record with empty values
+                        for field in all_fields:
+                            if field not in record:
+                                record[field] = ""
+                    else:
+                        # Not in append mode - can rewrite
+                        csv_file.seek(0)
+                        csv_file.truncate()
+                        csv_writer = csv.DictWriter(csv_file, fieldnames=all_fields)
+                        csv_writer.writeheader()
+                        fieldnames_written = True
                 
                 csv_writer.writerow(record)
                 csv_file.flush()  # Ensure it's written immediately
@@ -325,7 +379,7 @@ def main() -> None:
     responses = load_responses(args.input)
     print(f"Loaded {len(scenarios)} scenarios and {len(responses)} responses", flush=True)
     
-    # Check if output file already exists and is complete (150 evaluations)
+    # Check if output file already exists and is complete (300 evaluations for 10 iterations)
     if args.output.exists():
         try:
             import csv as csv_module
@@ -340,13 +394,28 @@ def main() -> None:
                 if key and key != (None, None):
                     unique_keys.add(key)
             
-            if len(unique_keys) >= 150:
-                print(f"✓ Output file already complete: {args.output} ({len(unique_keys)}/150 evaluations)", flush=True)
-                print("  Skipping - file already has sufficient evaluations", flush=True)
+            # Check which iterations are already judged
+            iterations_seen = set()
+            for r in rows:
+                iter_val = r.get('iteration')
+                if iter_val:
+                    try:
+                        iterations_seen.add(int(iter_val))
+                    except:
+                        pass
+            
+            # If we have all 10 iterations (1-10), skip
+            if len(unique_keys) >= 300 and len(iterations_seen) >= 10:
+                print(f"✓ Output file already complete: {args.output} ({len(unique_keys)}/300 evaluations)", flush=True)
+                print("  Skipping - file already has all 10 iterations", flush=True)
                 return
+            elif len(unique_keys) >= 150:
+                # Has iterations 1-5, will continue with 6-10
+                print(f"⏳ Output file has iterations 1-5: {args.output} ({len(unique_keys)}/300 evaluations)", flush=True)
+                print(f"  Continuing to judge iterations 6-10...", flush=True)
             else:
-                print(f"⚠️  Output file exists but incomplete: {args.output} ({len(unique_keys)}/150 evaluations)", flush=True)
-                print("  Will overwrite and restart from beginning", flush=True)
+                print(f"⚠️  Output file exists but incomplete: {args.output} ({len(unique_keys)}/300 evaluations)", flush=True)
+                print("  Will continue from where it left off", flush=True)
         except Exception as e:
             print(f"⚠️  Could not check existing file: {e}", flush=True)
             print("  Will proceed with new file", flush=True)

@@ -15,7 +15,7 @@ from typing import Dict, List
 import plotly.graph_objects as go
 from plotly.offline import plot
 
-RESULTS_DIR = Path("results/local_runs")
+RESULTS_DIR = Path("results/local_runs_expanded")
 OUTPUT_HTML = RESULTS_DIR / "local_phase1_report_detailed.html"
 
 

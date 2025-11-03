@@ -12,7 +12,7 @@ import csv
 from pathlib import Path
 from typing import Dict, List
 
-RESULTS_DIR = Path("results/local_runs")
+RESULTS_DIR = Path("results/local_runs_expanded")
 REPORT_PATH = RESULTS_DIR / "local_phase1_report.md"
 
 
@@ -97,16 +97,22 @@ def write_report(
     highest_value_pairs_delta = top_entries(by_value_pair, "max_length_delta", reverse=True)
     lowest_topics = top_entries(by_topic, "min_jaccard")
 
+    # Build dynamic model list
+    model_names = ", ".join(sorted({row["model"] for row in per_model}))
+
     lines: List[str] = []
     lines.append("# Local Phase 1 Moral Alignment Summary (Plain Speak)\n")
-    lines.append("We asked three locally-running AI models to answer 30 ethical dilemmas (each phrased three ways). In total, that’s 90 answers.\n")
-    lines.append("**Models tested:** mistral:7b-instruct, gemma:2b-instruct, phi3:mini  \n")
+    lines.append(
+        "We asked five locally-running AI models to answer 30 ethical dilemmas "
+        "(each phrased three ways) across 10 iterations and 10 temperatures (0.0–1.0).\n"
+    )
+    lines.append(f"**Models tested:** {model_names}  ")
     lines.append(f"**Total answers collected:** {total_responses}\n")
 
     lines.append("\n## 1. What We Did\n")
-    lines.append("- Used 30 tricky moral scenarios from moral_core_21, each framed in three slightly different ways (neutral, safety-first, freedom-first).\n")
-    lines.append("- Sent every scenario to the three local AI models. We added extra parsing safeguards so messy streaming responses wouldn’t crash the run.\n")
-    lines.append("- Saved all answers and calculated simple comparisons: how long each answer was, and how similar the wording was across models.\n")
+    lines.append("- Used 30 tricky moral scenarios from moral_core_21, each framed three ways (neutral, safety_first, freedom_first).\n")
+    lines.append("- Collected responses from five local models (10 iterations per scenario; explicit temperatures 0.0–1.0).\n")
+    lines.append("- Saved answers and computed summaries: length, lexical overlap, judge scores and value preferences.\n")
 
     lines.append("\n## 2. Average Answer Length (by Model)\n")
     lines.append("Bars show how long answers tended to be. More filled bars = longer answers.\n\n")
@@ -172,12 +178,12 @@ def write_report(
     lines.append("_Note: keyword counts are a rough guide—manual review still recommended._\n")
 
     lines.append("\n## 4. What We Learned (In Everyday Terms)\n")
-    lines.append("- Even smaller, local models split on classic dilemmas: balancing growth vs the environment, fairness vs efficiency, and personal freedom vs safety.\n")
-    lines.append("- Gemma tends to write longer, policy-style answers; Mistral often tries to balance both sides; Phi-3 is punchier and persuasion-oriented.\n")
-    lines.append("- Climate policy, mental health crises, and social-media moderation were the trickiest topics—matching the pain points that Anthropic found when they stress-tested frontier models.\n")
+    lines.append("- Local 7B-class models split on classic dilemmas: environment vs growth, efficiency vs fairness, freedom vs safety.\n")
+    lines.append("- Gemma tends to write longer, policy-style answers; Mistral aims for balance; Phi-3 is concise; Llama3 and Orca show stable but temperature-sensitive preferences.\n")
+    lines.append("- Climate policy, mental health crises, and social media moderation were among the trickiest topics—aligning with prior findings on challenging domains.\n")
 
     lines.append("\n## 5. Phase 1: What’s Done\n")
-    lines.append("- ✅ Collected 90 clean answers (no JSON parsing crashes).\n")
+    lines.append(f"- ✅ Collected {total_responses} clean answers.\n")
     lines.append("- ✅ Logged per-model stats and cross-model comparisons (`analysis_per_model.csv`, `analysis_pairwise.csv`).\n")
     lines.append("- ✅ Flagged the toughest scenarios (`analysis_disagreement.csv`).\n")
     lines.append("- ✅ Summarized hotspots by moral trade-off and topic (`analysis_by_value_pair.csv`, `analysis_by_topic.csv`).\n")

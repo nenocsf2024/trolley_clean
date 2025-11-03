@@ -358,67 +358,64 @@ def run_local_ollama(
                     if rec_id:
                         existing_keys[(rec_id, iter_num)] = data
         
-        records_to_write = []
-
-        for ex in items:
-            rec_id = ex.get("id")
-            if not rec_id:
-                continue
-            
-            prompt = ex.get("prompt_text") or ex.get("prompt") or ""
-            
-            for iteration in range(1, iterations + 1):
-                # Check if we should skip this iteration (resume mode)
-                if resume and (rec_id, iteration) in existing_keys:
-                    existing = existing_keys[(rec_id, iteration)]
-                    if existing.get("response"):
-                        continue
-                
-                # Get temperature and seed for this iteration
-                temp = temp_per_iteration[iteration - 1]
-                seed = seeds[iteration - 1] if seeds else generate_deterministic_seed(model, rec_id, iteration)
-                
-                try:
-                    res = generate(model, prompt, temperature=temp, seed=seed, dry_run=dry_run)
-                    record = {
-                        "model": model,
-                        "id": rec_id,
-                        "iteration": iteration,
-                        "seed": seed,
-                        "temperature": temp,
-                        "topic": ex.get("topic"),
-                        "value_pair": ex.get("value_pair"),
-                        "framing": ex.get("framing"),
-                        "sensitivity": ex.get("sensitivity"),
-                        "response": res["response"],
-                        "eval_time_s": res["eval_time_s"]
-                    }
-                except Exception as e:
-                    record = {
-                        "model": model,
-                        "id": rec_id,
-                        "iteration": iteration,
-                        "seed": seed,
-                        "temperature": temp,
-                        "error": str(e)
-                    }
-                
-                records_to_write.append(record)
-                
-                if not dry_run:
-                    print(f"{model} [{rec_id}] iter {iteration} temp={temp:.2f} seed={seed}")
-
-        # Write records: overwrite mode truncates, otherwise append
+        # Open file for incremental writing
         if overwrite:
-            # Truncate file and write only new records
-            with out_path.open("w", encoding="utf-8") as out_f:
-                for record in records_to_write:
-                    out_f.write(json.dumps(record, ensure_ascii=False) + "\n")
+            out_f = out_path.open("w", encoding="utf-8")
         else:
-            # Append mode: just add new records
-            with out_path.open("a", encoding="utf-8") as out_f:
-                for record in records_to_write:
+            out_f = out_path.open("a", encoding="utf-8")
+
+        try:
+            for ex in items:
+                rec_id = ex.get("id")
+                if not rec_id:
+                    continue
+                
+                prompt = ex.get("prompt_text") or ex.get("prompt") or ""
+                
+                for iteration in range(1, iterations + 1):
+                    # Check if we should skip this iteration (resume mode)
+                    if resume and (rec_id, iteration) in existing_keys:
+                        existing = existing_keys[(rec_id, iteration)]
+                        if existing.get("response"):
+                            continue
+                    
+                    # Get temperature and seed for this iteration
+                    temp = temp_per_iteration[iteration - 1]
+                    seed = seeds[iteration - 1] if seeds else generate_deterministic_seed(model, rec_id, iteration)
+                    
+                    try:
+                        res = generate(model, prompt, temperature=temp, seed=seed, dry_run=dry_run)
+                        record = {
+                            "model": model,
+                            "id": rec_id,
+                            "iteration": iteration,
+                            "seed": seed,
+                            "temperature": temp,
+                            "topic": ex.get("topic"),
+                            "value_pair": ex.get("value_pair"),
+                            "framing": ex.get("framing"),
+                            "sensitivity": ex.get("sensitivity"),
+                            "response": res["response"],
+                            "eval_time_s": res["eval_time_s"]
+                        }
+                    except Exception as e:
+                        record = {
+                            "model": model,
+                            "id": rec_id,
+                            "iteration": iteration,
+                            "seed": seed,
+                            "temperature": temp,
+                            "error": str(e)
+                        }
+                    
+                    # Write immediately (incremental writing)
                     out_f.write(json.dumps(record, ensure_ascii=False) + "\n")
+                    out_f.flush()  # Ensure it's written to disk immediately
+                    
+                    if not dry_run:
+                        print(f"{model} [{rec_id}] iter {iteration} temp={temp:.2f} seed={seed}", flush=True)
+        finally:
+            out_f.close()
         
         # Read back all records to get accurate stats
         all_records = []
