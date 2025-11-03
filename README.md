@@ -1,231 +1,131 @@
-# Moral Wind Tunnel: Phase 1 + Phase 2 Analysis Workspace
+# The Balance Penalty
 
-A clean, reproducible workspace for analyzing moral reasoning across local and API-based language models.
+Code and data for the paper **“The Balance Penalty: How LLM Judges Systematically Penalize Nuanced Moral Reasoning”** by Nenad Bago (2025).
 
-## Overview
-
-This workspace contains:
-- **Phase 1**: Local model responses collected via Ollama (5 models × 5 iterations per scenario)
-- **Phase 2**: API-based model responses and judge evaluations
-- **EDA**: Exploratory data analysis comparing heuristic vs. judge-based value preferences
-
-## Quick Start
-
-### 1. Setup
-
-```bash
-# Activate virtual environment
-source .venv/bin/activate
-
-# Verify dependencies are installed
-pip list | grep -E "(pandas|matplotlib|openai|anthropic)"
-```
-
-### 2. Verify Models
-
-Ensure all required Ollama models are available:
-
-```bash
-ollama list
-```
-
-Required models:
-- `mistral:7b-instruct`
-- `gemma:2b-instruct`
-- `phi3:mini`
-- `deepseek-r1:7b`
-- `llama3:8b`
-
-If models are missing, pull them:
-
-```bash
-ollama pull deepseek-r1:7b
-ollama pull llama3:8b
-```
-
-### 3. Regenerate Phase 1 Data
-
-Run expanded Phase 1 collection with all 5 models:
-
-```bash
-# Dry run to test configuration
-python scripts/run_phase1_expanded.py \
-    --iterations 5 \
-    --temperatures 0.6,0.8,1.0,0.7,0.9 \
-    --dry-run
-
-# Actual run (writes to results/local_runs_expanded/)
-python scripts/run_phase1_expanded.py \
-    --iterations 5 \
-    --temperatures 0.6,0.8,1.0,0.7,0.9
-```
-
-### 4. Validate Coverage
-
-Check that each model × scenario has 5 iterations:
-
-```bash
-python scripts/check_phase1_iterations.py \
-    --input-dir results/local_runs_expanded \
-    --verbose
-```
-
-### 5. Judge Responses
-
-Run judge evaluations on Phase 1 responses:
-
-```bash
-python scripts/judge_responses.py \
-    --input-dir results/local_runs_expanded \
-    --providers openai::gpt-4o-mini,mistral::mistral-medium-latest
-```
-
-### 6. Analyze Results
-
-Generate Phase 1 analysis:
-
-```bash
-python scripts/analyze_local_results.py \
-    --input-dir results/local_runs_expanded
-```
-
-### 7. Run EDA
-
-Generate exploratory data analysis comparing Phase 1 and Phase 2:
-
-```bash
-python scripts/eda_phase_comparison.py
-```
-
-Outputs appear in `results/eda/`:
-- `value_preference_distribution_judges.png` - Main judge-based plot
-- `heuristic_vs_judge_value_preference_summary.csv` - Comparison table
-- Alignment heatmaps and other diagnostics
-
-## Project Structure
-
-```
-trolley_clean/
-├── scripts/                    # Analysis and data collection scripts
-│   ├── run_local_ollama.py     # Core Phase 1 runner
-│   ├── run_phase1_expanded.py  # Multi-iteration Phase 1 wrapper
-│   ├── judge_responses.py      # Judge evaluation script
-│   ├── analyze_local_results.py # Phase 1 analysis
-│   ├── check_phase1_iterations.py # Validation script
-│   └── eda_phase_comparison.py # Phase 1 vs Phase 2 EDA
-├── results/
-│   ├── phase2/                  # Phase 2 API responses and judge CSVs
-│   ├── local_runs_expanded/     # Phase 1 multi-iteration outputs
-│   └── eda/                     # EDA plots and tables
-├── moral_core_21_sample.jsonl   # Scenario dataset
-├── requirements.txt             # Python dependencies
-└── local_llm_licences.md        # License information for local models
-```
-
-## Models in Use
-
-### Phase 1 (Local via Ollama)
-1. **Mistral 7B Instruct** (`mistral:7b-instruct`)
-2. **Gemma 2B Instruct** (`gemma:2b-instruct`)
-3. **Phi-3 Mini** (`phi3:mini`)
-4. **Llama 3 8B** (`llama3:8b`) ⭐ New
-
-Note: DeepSeek R1 7B was removed due to thinking model compatibility issues.
-
-### Phase 2 (API-based)
-- Claude Sonnet 4
-- GPT-4o-mini
-- Gemini 2.5 Flash Lite
-- Grok 3
-- Mistral Large
-
-### Judges
-- OpenAI GPT-4o-mini
-- Mistral Medium Latest
-
-## Configuration
-
-Default models are configured in `scripts/run_local_ollama.py`:
-
-```python
-DEFAULT_MODELS = [
-    "mistral:7b-instruct",
-    "gemma:2b-instruct",
-    "phi3:mini",
-    "deepseek-r1:7b",
-    "llama3:8b"
-]
-```
-
-Override via environment variable:
-```bash
-export OLLAMA_MODELS="mistral:7b-instruct,phi3:mini"
-```
-
-## Output Format
-
-### Phase 1 JSONL Format
-Each line in `results/local_runs_expanded/*.jsonl`:
-```json
-{
-  "model": "mistral:7b-instruct",
-  "id": "MC21-001-N",
-  "iteration": 1,
-  "seed": 12345678,
-  "temperature": 0.7,
-  "topic": "Medical AI Diagnosis Disclosure",
-  "value_pair": "honesty_vs_empathy",
-  "framing": "neutral",
-  "sensitivity": "medium",
-  "response": "...",
-  "eval_time_s": 2.3
-}
-```
-
-### Judge CSV Format
-Each `judge_*.csv` contains:
-- `model`, `id`, `iteration`
-- `judge_provider`, `judge_model`
-- `preferred_value`, `confidence`, `reasoning`
-
-## Troubleshooting
-
-### Models Not Found
-```bash
-# List available models
-ollama list
-
-# Pull missing models
-ollama pull deepseek-r1:7b
-ollama pull llama3:8b
-```
-
-### Ollama Connection Issues
-```bash
-# Ensure Ollama is running
-ollama serve
-
-# Check Ollama status
-curl http://localhost:11434/api/tags
-```
-
-### Missing Judge API Keys
-Set environment variables:
-```bash
-export OPENAI_API_KEY="your-key"
-export MISTRAL_API_KEY="your-key"
-```
-
-## License
-
-See `local_llm_licences.md` for license information for each local model.
-
-All scripts and analysis code are open source and available for research use.
+> **TL;DR** – Automated evaluators such as GPT-4o-mini and Claude 3.5 Haiku award decisively framed answers substantially higher alignment scores than balanced trade-off reasoning (Δ ≈ 0.74). This repository contains the complete Phase 1 dataset (1,500 responses, 3,000 judge evaluations), generation and judging scripts, statistical analysis, and publication figures.
 
 ---
 
-**Last Updated:** Clean workspace setup for Phase 1 + Phase 2 analysis with 5 local models (including Llama 3 and DeepSeek).
+## Quick Start
 
+```bash
+# 1. Clone the repository and enter it
+git clone https://github.com/nenocsf2024/trolley_clean.git
+cd trolley_clean
 
+# 2. Create environment and install dependencies (Python 3.12 recommended)
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 
+# 3. Re-run the analysis (recreates CSV/JSON summaries and figures)
+python scripts/analyze_balance_penalty.py
 
+# 4. Compile the manuscript (optional)
+cd manuscript
+latexmk -pdf main.tex
+```
+
+The regenerated artifacts will appear under `results/local_runs_expanded/analysis/` and `manuscript/figures/`.
+
+---
+
+## Repository Structure
+
+```
+trolley_clean/
+├── moral_core_21_sample.jsonl         # Scenario corpus (30 dilemmas × 3 framings)
+├── scripts/                           # Data generation, judging, and analysis scripts
+│   ├── run_phase1_expanded.py
+│   ├── judge_responses.py
+│   ├── judge_all_phase1.sh
+│   └── analyze_balance_penalty.py
+├── results/local_runs_expanded/       # Phase 1 dataset (JSONL responses + judge CSV/analysis)
+│   └── analysis/                      # Derived tables (alignment by framing, disagreement, etc.)
+├── manuscript/                        # LaTeX source and publication figures
+│   ├── main.tex
+│   └── figures/
+├── notebooks/
+│   └── phase1_analysis.ipynb          # Supplementary exploration (plots, QA)
+├── README.md
+├── LICENSE
+└── requirements.txt
+```
+
+---
+
+## Reproducing Phase 1 (Local Models)
+
+1. **Generate responses** (five local Ollama models × 30 scenarios × 10 iterations):
+   ```bash
+   python scripts/run_phase1_expanded.py \
+       --iterations 10 \
+       --temperatures 0.6,0.7,0.8,0.9,1.0,0.0,0.2,0.3,0.4,0.5
+   ```
+
+2. **Judge all responses** with GPT-4o-mini and Claude 3.5 Haiku:
+   ```bash
+   bash scripts/judge_all_phase1.sh
+   ```
+   Configure `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` in your environment or a local `.env` file before running.
+
+3. **Run the statistical analysis and generate tables/figures**:
+   ```bash
+   python scripts/analyze_balance_penalty.py
+   ```
+
+All generated outputs are stored under `results/local_runs_expanded/analysis/`.
+
+---
+
+## Key Artifacts
+
+- `results/local_runs_expanded/*.jsonl` – Raw Phase 1 responses (1,500 total)
+- `results/local_runs_expanded/judges/*.csv` – GPT-4o-mini / Claude 3.5 Haiku judgments (3,000 rows)
+- `results/local_runs_expanded/analysis/analysis_balance_penalty_overall.json` – Summary stats (effect sizes, R², Fleiss’ κ)
+- `results/local_runs_expanded/analysis/analysis_response_characteristics.csv` – Length and lexical diagnostics
+- `manuscript/` – LaTeX paper, including all publication figures
+
+---
+
+## Requirements
+
+- Python 3.12+
+- Ollama with the following models pulled locally:
+  - `mistral:7b-instruct`
+  - `gemma:2b-instruct`
+  - `phi3:mini`
+  - `llama3:8b`
+  - `orca-mini:7b`
+- API access to GPT-4o-mini (OpenAI) and Claude 3.5 Haiku (Anthropic) for judging
+
+The `requirements.txt` file pins the exact Python packages used to reproduce the results.
+
+---
+
+## Citation
+
+If you use this repository, please cite:
+
+```bibtex
+@article{bago2025balance,
+  title   = {The Balance Penalty: How LLM Judges Systematically Penalize Nuanced Moral Reasoning},
+  author  = {Bago, Nenad},
+  journal = {arXiv preprint arXiv:XXXX.XXXXX},
+  year    = {2025}
+}
+```
+
+---
+
+## License
+
+This project is released under the [MIT License](LICENSE).
+
+---
+
+## Contact
+
+Nenad Bago  
+nenad@airis-med.eu  
+GitHub: [@nenocsf2024](https://github.com/nenocsf2024)
