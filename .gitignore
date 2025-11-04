@@ -49,3 +49,5 @@ results/local_runs_expanded/analysis_balance_penalty_overall.json
 results/local_runs_expanded/analysis_response_characteristics.csv
 
 notes/
+
+phase1_analysis.ipynb
