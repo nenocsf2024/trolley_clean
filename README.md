@@ -128,6 +128,32 @@ This project is released under the [MIT License](LICENSE).
 
 ---
 
+## Disclaimer
+
+This research code is provided "as is" for academic reproducibility purposes. The findings document observed behaviors in specific LLM evaluation systems and are not intended as production-ready solutions or definitive guidance for deployment decisions.
+
+**Not intended for:**
+- Production deployment without extensive additional validation
+- Safety-critical systems without independent verification
+- Direct implementation without adaptation to specific contexts
+
+**Users should:**
+- Conduct their own testing and validation
+- Assess applicability to their specific use cases
+- Consult with domain experts before production use
+- Comply with all applicable terms of service for API providers
+
+The author disclaims all warranties and liability for any consequences arising from use of this code or implementation of findings.
+
+## Responsible Use
+
+This repository enables auditing of LLM judge behavior. While we encourage responsible testing and mitigation of evaluation biases, users should be aware of potential dual-use concerns. Do **not** use these findings to:
+- Manipulate evaluation systems for malicious purposes
+- Circumvent safety measures in production systems
+- Generate misleading content that exploits documented biases
+
+---
+
 ## Contact
 
 Nenad Bago  
