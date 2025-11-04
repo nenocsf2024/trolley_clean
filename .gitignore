@@ -55,3 +55,5 @@ phase1_analysis.ipynb
 figures/word_report/
 
 results/phase2/
+
+*.docx
