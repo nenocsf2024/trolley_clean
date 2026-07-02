@@ -8,8 +8,8 @@
 \bibitem[Ahmed et~al.(2025)Ahmed, Klyman, Zeng, Koyejo, and
   Liang]{ahmed2025speceval}
 Ahmed Ahmed, Kevin Klyman, Yi~Zeng, Sanmi Koyejo, and Percy Liang.
-\newblock Speceval: Evaluating model adherence to behavior specifications,
-  2025.
+\newblock Speceval: Evaluating model adherence to behavior specifications.
+\newblock arXiv:2509.02464, 2025.
 
 \bibitem[Awad et~al.(2018)Awad, Dsouza, Kim, Schulz, Henrich, Shariff,
   Bonnefon, and Rahwan]{awad2018moral}
@@ -20,22 +20,26 @@ Edmond Awad, Sohan Dsouza, Richard Kim, Jonathan Schulz, Joseph Henrich, Azim
 
 \bibitem[Bai et~al.(2022)]{bai2022constitutional}
 Yuntao Bai et~al.
-\newblock Constitutional ai: Harmlessness from ai feedback, 2022.
+\newblock Constitutional ai: Harmlessness from ai feedback.
+\newblock arXiv:2212.08073, 2022.
 
 \bibitem[Casper et~al.(2023)Casper, Davies, et~al.]{casper2023limitations}
 Stephen Casper, Xander Davies, et~al.
 \newblock Open problems and fundamental limitations of reinforcement learning
-  from human feedback, 2023.
+  from human feedback.
+\newblock arXiv:2307.15217, 2023.
 
 \bibitem[Chiu et~al.(2024)]{chiu2024daily}
 Yu~Ying Chiu et~al.
 \newblock Dailydilemmas: Revealing value preferences of llms with quandaries of
-  daily life, 2024.
+  daily life.
+\newblock arXiv:2410.02683, 2024.
 
 \bibitem[Chiu et~al.(2025)]{chiu2025airisk}
 Yu~Ying Chiu et~al.
 \newblock Will ai tell lies to save sick children? litmus-testing ai values
-  prioritization with airiskdilemmas, 2025.
+  prioritization with airiskdilemmas.
+\newblock arXiv:2505.14633, 2025.
 
 \bibitem[Christiano et~al.(2017)Christiano, Leike, Brown, Martic, Legg, and
   Amodei]{christiano2017deep}
@@ -48,7 +52,8 @@ Paul~F Christiano, Jan Leike, Tom~B Brown, Miljan Martic, Shane Legg, and Dario
   Hashimoto]{dubois2024alpacaeval}
 Yann Dubois, Bal{\'a}zs Galambosi, Percy Liang, and Tatsunori~B. Hashimoto.
 \newblock Length-controlled alpacaeval: A simple way to debias automatic
-  evaluators, 2024.
+  evaluators.
+\newblock arXiv:2404.04475, 2024.
 
 \bibitem[Greene et~al.(2001)Greene, Sommerville, Nystrom, Darley, and
   Cohen]{greene2001dual}
@@ -59,7 +64,8 @@ Joshua~D Greene, R~Brian Sommerville, Leigh~E Nystrom, John~M Darley, and
 
 \bibitem[Liu et~al.(2023)Liu, Iter, Xu, Wang, Xu, and Zhu]{liu2023geval}
 Yang Liu, Dan Iter, Yichong Xu, Shuohang Wang, Ruochen Xu, and Chenguang Zhu.
-\newblock G-eval: Nlg evaluation using gpt-4 with better human alignment, 2023.
+\newblock G-eval: Nlg evaluation using gpt-4 with better human alignment.
+\newblock arXiv:2303.16634, 2023.
 
 \bibitem[Manheim and Garrabrant(2018)]{manheim2018categorizing}
 David Manheim and Scott Garrabrant.
@@ -68,23 +74,26 @@ David Manheim and Scott Garrabrant.
 
 \bibitem[Mu et~al.(2024)Mu, Helyar, Heidecke, et~al.]{mu2024rule}
 Tong Mu, Alec Helyar, Johannes Heidecke, et~al.
-\newblock Rule based rewards for language model safety, 2024.
+\newblock Rule based rewards for language model safety.
+\newblock arXiv:2411.01111, 2024.
 
 \bibitem[Perez et~al.(2022)]{perez2022discovering}
 Ethan Perez et~al.
-\newblock Discovering language model behaviors with model-written evaluations,
-  2022.
+\newblock Discovering language model behaviors with model-written evaluations.
+\newblock arXiv:2212.09251, 2022.
 
 \bibitem[Zhang et~al.(2025)Zhang, Sleight, Peng, Durmus, and
   Schulman]{zhang2025stresstest}
 Jifan Zhang, Henry Sleight, Andi Peng, Esin Durmus, and John Schulman.
 \newblock Stress-testing model specs reveals character differences among
-  language models, 2025.
+  language models.
+\newblock arXiv:2510.07686, 2025.
 
 \bibitem[Zheng et~al.(2023)Zheng, Chiang, Sheng, Zhuang, Wu, Zhuang,
   et~al.]{zheng2023judging}
 Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao
   Zhuang, et~al.
-\newblock Judging llm-as-a-judge with mt-bench and chatbot arena, 2023.
+\newblock Judging llm-as-a-judge with mt-bench and chatbot arena.
+\newblock arXiv:2306.05685, 2023.
 
 \end{thebibliography}
