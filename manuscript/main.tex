@@ -67,7 +67,7 @@ Taken together, these findings suggest that current LLM-based evaluators favor d
 
 Research on moral reasoning in LLMs has emphasized both capability and variability. The Moral Machine experiment~\citep{awad2018moral} and subsequent moral dilemma benchmarks (e.g., Daily Dilemmas~\citep{chiu2024daily}, AIRisk Dilemmas~\citep{chiu2025airisk}) demonstrated that models encode culturally dependent moral preferences. Constitutional AI~\citep{bai2022constitutional} and rule-based alignment methods~\citep{mu2024rule} introduced scripted value constraints, yet still rely on evaluator feedback for reinforcement learning from human feedback (RLHF)~\citep{christiano2017deep}. Goodhart-style critiques~\citep{manheim2018categorizing} warn that optimizing proxy reward models can distort intended objectives, and broader surveys catalog open problems in RLHF pipelines~\citep{casper2023limitations}.
 
-LLM-as-judge research has matured rapidly. Perez et~al.~\citep{perez2022discovering} introduced model-written evaluations, Liu et~al.~\citep{liu2023geval} proposed G-Eval for summarisation scoring, and Zheng et~al.~\citep{zheng2023judging} benchmarked pairwise judging with MT-Bench and Chatbot Arena. Anthropic's stress-testing study~\citep{zhang2025stresstest} reported 70\% agreement (Fleiss' $\kappa \approx 0.42$) among LLM judges across 300{,}000 spec stress scenarios, highlighting disagreement as a specification-ambiguity signal. SpecEval~\citep{ahmed2025speceval} similarly noted evaluator drift under adversarial prompts. Our work extends these observations by supplying a mechanistic analysis: we show that evaluator disagreement concentrates on balanced moral reasoning because judges systematically penalize nuance. We also connect to length-bias analyses in automated evaluation~\citep{dubois2024alpacaeval}, providing lexical diagnostics that explain why decisive answers receive higher scores.
+LLM-as-judge research has matured rapidly. Perez et~al.~\citep{perez2022discovering} introduced model-written evaluations, Liu et~al.~\citep{liu2023geval} proposed G-Eval for summarisation scoring, and Zheng et~al.~\citep{zheng2023judging} benchmarked pairwise judging with MT-Bench and Chatbot Arena. Anthropic's stress-testing study~\citep{zhang2025stresstest} reported 70\% agreement (Fleiss' $\kappa \approx 0.42$) among LLM judges across 300{,}000 spec stress scenarios, highlighting disagreement as a specification-ambiguity signal. SpecEval~\citep{ahmed2025speceval} introduced automated audits of model adherence to providers' behavioral specifications, underscoring the gap between specified and observed behavior. Our work extends these observations by supplying a mechanistic analysis: we show that evaluator disagreement concentrates on balanced moral reasoning because judges systematically penalize nuance. We also connect to length-bias analyses in automated evaluation~\citep{dubois2024alpacaeval}, providing lexical diagnostics that explain why decisive answers receive higher scores.
 
 
 \section{Methods}
@@ -296,13 +296,13 @@ Table~\ref{tab:scenarios} summarizes the thirty moral dilemmas and framing varia
         MC21-001 & Medical AI diagnosis disclosure & honesty vs empathy \\
         MC21-002 & Algorithmic hiring fairness & efficiency vs fairness \\
         MC21-003 & Social media moderation & safety vs freedom \\
-        MC21-004 & Corporate transparency & privacy vs transparency \\
+        MC21-004 & Student data privacy in education & privacy vs transparency \\
         MC21-005 & Climate policy trade-off & environment vs growth \\
         MC21-006 & Mental health intervention & autonomy vs safety \\
         MC21-007 & Autonomous vehicles & fairness vs efficiency \\
-        MC21-008 & AI whistleblowing & loyalty vs accountability \\
-        MC21-009 & Predictive policing & fairness vs safety \\
-        MC21-010 & AI companionship & harmlessness vs helpfulness \\
+        MC21-008 & Healthcare resource allocation & fairness vs efficiency \\
+        MC21-009 & Predictive policing bias prevention & fairness vs efficiency \\
+        MC21-010 & AI companion emotional manipulation & helpfulness vs harmlessness \\
         \midrule
         $\vdots$ & $\vdots$ & $\vdots$ \\
         \bottomrule
